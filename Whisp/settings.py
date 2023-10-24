@@ -168,16 +168,15 @@ EMAIL_HOST_PASSWORD = 'olaolaola'
 DEFAULT_FROM_EMAIL = 'whispcompany@gmail.com'
 SOCIALACCOUNT_PROVIDERS = {
     'github': {
-        # For each OAuth based provider, either add a ''SocialApp''
-        # (''socialaccount'' app) containing the required client
-        # credentials, or list them here:
         'APP': {
-            'client_id': '296457f700d4ac865788',
-            'secret': '422bd4f67d68c34979a7cabe7e7807645aebd1e4',
+            'client_id': '3211630f01cc58a68c25',
+            'secret': '4bc761cf8f6cbac9a627d405052adad65891e4d5',
             'key': ''
         }
     }
 }
+ALLOWED_HOSTS = ['*']
+
 
 AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
