@@ -5,6 +5,7 @@
 {% endblock head_title %}
 
 {% block body %}
+    {% include "feed/new_post_homepage.html" %}
     <div id="posts-container">
         {% for post in posts %}
             {% include "includes/post.html" with post=post  show_detail_link=True %}

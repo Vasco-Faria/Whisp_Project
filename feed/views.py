@@ -3,7 +3,7 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView,DeleteView,TemplateView
 from django.contrib import messages
-
+from django.urls import reverse_lazy
 from followers.models import Follower
 from .models import Post 
 
@@ -25,41 +25,44 @@ class DetailPostView(DetailView):
     model = Post
     context_object_name = "post"
     
-    
-    
-class CreateNewPost(LoginRequiredMixin,CreateView):
+class CreatePostBase(LoginRequiredMixin, CreateView):
     model = Post
-    template_name = "feed/new_post.html"
-    fields = ['text']
-    success_url = '/'
+    fields = ['text', 'image', 'video']
+    success_url = reverse_lazy('homepage')
 
-    def dispatch(self, request,*args,**kwargs):
+    def dispatch(self, request, *args, **kwargs):
         self.request = request
-        return super().dispatch(request,*args,**kwargs)
+        return super().dispatch(request, *args, **kwargs)
 
-    def form_valid(self,form):
+    def form_valid(self, form):
         obj = form.save(commit=False)
         obj.author = self.request.user
         obj.save()
-        
         return super().form_valid(form)
 
-    def post(self, request,*args,**kwargs):
+    def post(self, request, *args, **kwargs):
         post = Post.objects.create(
-            text = request.POST.get("text"),
-            author = request.user,
+            text=request.POST.get("text"),
+            author=request.user,
+            image=request.FILES.get("image"),
+            video=request.FILES.get("video"),
         )
         messages.add_message(self.request, messages.SUCCESS, "Your Post Is Submitted !!")
         return render(
             request,
             "includes/post.html",
             {
-                'post':post,
-                "show_detail_link" : True
+                'post': post,
+                "show_detail_link": True
             },
             content_type="application/html"
         )
-    
+
+class CreateNewPostHomepage(CreatePostBase):
+    template_name = "feed/new_post_homepage.html"
+
+class CreateNewPost(CreatePostBase):
+    template_name = "feed/new_post.html"
     
 class DeletePost(DeleteView):
     model = Post
