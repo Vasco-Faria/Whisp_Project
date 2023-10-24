@@ -169,8 +169,8 @@ DEFAULT_FROM_EMAIL = 'whispcompany@gmail.com'
 SOCIALACCOUNT_PROVIDERS = {
     'github': {
         'APP': {
-            'client_id': '3211630f01cc58a68c25',
-            'secret': '4bc761cf8f6cbac9a627d405052adad65891e4d5',
+            'client_id': '703ac597467b257f7c19',
+            'secret': '8be55bf1613989171ede05f02e0616df86f9b1e9',
             'key': ''
         }
     }
