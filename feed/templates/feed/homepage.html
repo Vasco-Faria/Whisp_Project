@@ -5,11 +5,24 @@
 {% endblock head_title %}
 
 {% block body %}
-    {% include "feed/new_post_homepage.html" %}
+    <div class="flex justify-center">
+        <form method='POST' action="." enctype="multipart/form-data">
+            {% csrf_token %}
+            {{form.as_p}}
+            <div class="m-3 mx-0">
+                <button class="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center">
+                <span class="mr-2 text-sm">Create Post</span>
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="currentcolor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                </svg>
+                </button>
+            </div>
+        </form> 
+    </div>
     <div id="posts-container">
         {% for post in posts %}
             {% include "includes/post.html" with post=post  show_detail_link=True %}
             <hr/>
         {% endfor %}
     </div>
-{% endblock  %}
+{% endblock  %} 

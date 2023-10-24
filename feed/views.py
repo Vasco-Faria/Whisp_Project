@@ -1,23 +1,40 @@
-from django.shortcuts import render
+from django.shortcuts import redirect, render
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView,DeleteView,TemplateView
 from django.contrib import messages
-from django.urls import reverse_lazy
+
 from followers.models import Follower
-from .models import Post 
+from .models import Post,Comment,Like
+from .forms import PostForm
+from django.http import JsonResponse
+from django.shortcuts import get_object_or_404
 
 class HomePage(TemplateView):
-    http_method_names = ['get']
     template_name = "feed/homepage.html"
-    model = Post
-    context_object_name = "posts"
+
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        posts = Post.objects.all().order_by('-id')[0:60]
-                
+        posts = Post.objects.all().order_by('-id')[:60]
         context['posts'] = posts
+        context['form'] = PostForm()  
         return context
+
+    def post(self, request, *args, **kwargs):
+        form = PostForm(request.POST, request.FILES)
+        if form.is_valid():
+            post = Post(
+                text=form.cleaned_data['text'],
+                image=form.cleaned_data['image'],
+                video=form.cleaned_data['video'],
+                author=request.user
+            )
+            post.save()
+
+            
+            return redirect('/')
+        posts = Post.objects.all().order_by('-id')[:60]
+        return render(request, 'feed/homepage.html', {'form': form, 'posts': posts})
 
 class DetailPostView(DetailView):
     http_method_names = ['get']
@@ -25,44 +42,55 @@ class DetailPostView(DetailView):
     model = Post
     context_object_name = "post"
     
-class CreatePostBase(LoginRequiredMixin, CreateView):
+def like_post(request, post_id):
+    post = get_object_or_404(Post, id=post_id)
+    like, created = Like.objects.get_or_create(user=request.user, post=post)
+
+    # Verificar se o usuário já deu "like" e excluir o "like" se necessário
+    if not created:
+        like.delete()
+
+    post_likes = post.likes.count()
+
+    # Exemplo de retorno de JSON com o status do "like"
+    response_data = {'liked': created, 'like_count': post_likes}
+    return JsonResponse(response_data)
+    
+class CreateNewPost(LoginRequiredMixin,CreateView):
     model = Post
-    fields = ['text', 'image', 'video']
-    success_url = reverse_lazy('homepage')
+    template_name = "feed/new_post.html"
+    fields = ['text','image','video']
+    success_url = '/'
 
-    def dispatch(self, request, *args, **kwargs):
+    def dispatch(self, request,*args,**kwargs):
         self.request = request
-        return super().dispatch(request, *args, **kwargs)
+        return super().dispatch(request,*args,**kwargs)
 
-    def form_valid(self, form):
+    def form_valid(self,form):
         obj = form.save(commit=False)
         obj.author = self.request.user
         obj.save()
+        
         return super().form_valid(form)
 
-    def post(self, request, *args, **kwargs):
+    def post(self, request,*args,**kwargs):
         post = Post.objects.create(
-            text=request.POST.get("text"),
-            author=request.user,
-            image=request.FILES.get("image"),
-            video=request.FILES.get("video"),
+            text = request.POST.get("text"),
+            author = request.user,
+            image=request.FILES.get("image"), 
+            video=request.FILES.get("video"), 
         )
         messages.add_message(self.request, messages.SUCCESS, "Your Post Is Submitted !!")
         return render(
             request,
             "includes/post.html",
             {
-                'post': post,
-                "show_detail_link": True
+                'post':post,
+                "show_detail_link" : True
             },
             content_type="application/html"
         )
-
-class CreateNewPostHomepage(CreatePostBase):
-    template_name = "feed/new_post_homepage.html"
-
-class CreateNewPost(CreatePostBase):
-    template_name = "feed/new_post.html"
+    
     
 class DeletePost(DeleteView):
     model = Post

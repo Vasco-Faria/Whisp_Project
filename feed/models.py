@@ -13,9 +13,18 @@ class Post(models.Model):
         User,
         on_delete=models.CASCADE,
     )
+    
+    likes = models.ManyToManyField(User, default=None, blank=True)
 
     def __str__(self):
         return self.text
+    
+    @property
+    def num_likes(self):
+        return self.liked.all.count()
+
+    def get_comment_count(self):
+        return self.comment_set.count() 
     
 class Comment(models.Model):
     post = models.ForeignKey(Post, on_delete=models.CASCADE)
@@ -25,3 +34,14 @@ class Comment(models.Model):
 
     def __str__(self):
         return self.text
+    
+class Like(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f'Like by {self.user.username} on Post {self.post.id}'
+            
+    def user_has_liked(self, user):
+        return self.objects.filter(user=user, post=self).exists()
+    
