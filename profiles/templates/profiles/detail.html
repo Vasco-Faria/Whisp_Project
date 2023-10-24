@@ -49,6 +49,18 @@
             </div>
         </div>
     </div>
+
+    <!-- Add a section for the bio -->
+    <div class="rounded-3xl overflow-hidden shadow-xl max-w-md mx-auto my-3 text-black bg-white-500">
+        <h3 class="text-lg font-bold font-sans">Bibliography</h3>
+        <form method="post" class="text-left px-10">
+            {% csrf_token %}
+            <textarea name="bibliography" rows="4" cols="50">{{ user.profile.bibliography }}</textarea>
+            <button type="submit" class="p-2 pl-5 pr-5 transition-colors duration-700 transform bg-indigo-500 hover:bg-blue-400 text-gray-100 text-lg rounded-lg focus:border-4 border-indigo-300">Update Bibliography</button>
+        </form>
+    </div>
+
+
     <!-- <div id = "posts-container">
         {% if posts %}
             {% for post in posts %}

@@ -5,7 +5,7 @@ from sorl.thumbnail import ImageField
 class Post(models.Model):
     text = models.CharField(max_length=240)
     date = models.DateTimeField(auto_now=True)
-    comments = models.ManyToManyField(User, through='Comment', related_name='commented_posts')
+    #comments = models.ManyToManyField(User, through='Comment', related_name='commented_posts')
     image = ImageField(upload_to='post_images/', blank=True, null=True)
     video = models.FileField(upload_to='post_videos/', blank=True, null=True)
 
@@ -14,7 +14,7 @@ class Post(models.Model):
         on_delete=models.CASCADE,
     )
     
-    likes = models.ManyToManyField(User, default=None, blank=True)
+    likes = models.ManyToManyField(User, default=None, blank=True,related_name="liked")
 
     def __str__(self):
         return self.text
