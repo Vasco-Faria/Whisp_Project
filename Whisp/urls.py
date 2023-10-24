@@ -23,12 +23,14 @@ from django.conf import settings
 from feed import urls as feed_urls
 from profiles import urls as profiles_urls
 from profiles.views import profile
+from . import views
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("",include(feed_urls,namespace='feed')),
     path("profile/",include(profiles_urls,namespace='profiles')),
     path("profile/", profile, name="profile"),
+    path('resetpassword/', views.reset_password,name='reset_password'),
     path("",include("allauth.urls")),
 ]
 

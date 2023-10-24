@@ -1,0 +1,21 @@
+Content-Type: text/plain; charset="utf-8"
+MIME-Version: 1.0
+Content-Transfer-Encoding: 7bit
+Subject: [localhost:8000] Password Reset Email
+From: webmaster@localhost
+To: vascomfaria@gmail.com
+Date: Tue, 24 Oct 2023 08:25:32 -0000
+Message-ID: <169813593280.9280.6449726560437243612@hp-spectre-x360>
+
+Hello from localhost:8000!
+
+You're receiving this email because you or someone else has requested a password reset for your user account.
+It can be safely ignored if you did not request a password reset. Click the link below to reset your password.
+
+http://localhost:8000/password/reset/key/1-bwkfek-93e9da78213f78282d00d6cc08d3dab0/
+
+In case you forgot, your username is vascomfaria.
+
+Thank you for using localhost:8000!
+localhost:8000
+-------------------------------------------------------------------------------
