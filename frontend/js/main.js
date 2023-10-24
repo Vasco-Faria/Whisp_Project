@@ -74,11 +74,11 @@ $(document).on("click", ".js-toggle-modal", function(e) {
         success: (data) => {
             $(".js-follow-text").text(data.wording)
             if(action == "follow") {
-                // Change wording to unfollow
+                
                 console.log("DEBUG", "unfollow")
                 $(this).attr("data-action", "unfollow")
             } else {
-                // The opposite
+                
                 console.log("DEBUG", "follow")
                 $(this).attr("data-action", "follow")
             }
@@ -88,3 +88,41 @@ $(document).on("click", ".js-toggle-modal", function(e) {
         }
     });
 })
+
+const videos = document.querySelectorAll('.auto-play-video');
+
+const observer = new IntersectionObserver(entries => {
+    entries.forEach(entry => {
+        if (entry.isIntersecting) {
+            entry.target.play(); 
+        } else {
+            entry.target.pause(); 
+        }
+    });
+});
+
+videos.forEach(video => {
+    observer.observe(video);
+});
+
+$(document).ready(function() {
+    $('#like-button').on('click', function(event) {
+        event.preventDefault();
+        var post_id = $(this).data('post-id');
+        var url = '/like/' + post_id + '/';
+
+        $.get(url, function(data) {
+            var likeButton = $('#like-button');
+            var likeText = $('#like-text');
+            var likeCount = $('#like-count');
+
+            if (data.liked) {
+                likeText.text('Unlike');
+                likeCount.text(data.like_count);
+            } else {
+                likeText.text('Like');
+                likeCount.text(data.like_count);
+            }
+        });
+    });
+});
