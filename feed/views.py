@@ -5,7 +5,7 @@ from django.views.generic import DetailView,DeleteView,TemplateView
 from django.contrib import messages
 
 from followers.models import Follower
-from .models import Post,Comment,Like
+from .models import Post,Like
 from .forms import PostForm
 from django.http import JsonResponse
 from django.shortcuts import get_object_or_404
@@ -42,20 +42,8 @@ class DetailPostView(DetailView):
     model = Post
     context_object_name = "post"
     
-def like_post(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
-    like, created = Like.objects.get_or_create(user=request.user, post=post)
 
-    # Verificar se o usuário já deu "like" e excluir o "like" se necessário
-    if not created:
-        like.delete()
 
-    post_likes = post.likes.count()
-
-    # Exemplo de retorno de JSON com o status do "like"
-    response_data = {'liked': created, 'like_count': post_likes}
-    return JsonResponse(response_data)
-    
 class CreateNewPost(LoginRequiredMixin,CreateView):
     model = Post
     template_name = "feed/new_post.html"

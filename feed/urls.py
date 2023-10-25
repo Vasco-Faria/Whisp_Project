@@ -7,7 +7,6 @@ from . import views
 app_name = 'feed'
 
 urlpatterns = [
-    path('like/<int:post_id>/', views.like_post, name='like_post'),
     path('', views.HomePage.as_view(), name='homepage'),
     path("<int:pk>",views.DetailPostView.as_view(),name='detail'),
     path("new/",views.CreateNewPost.as_view(), name='new_post'),
