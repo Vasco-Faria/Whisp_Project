@@ -12,6 +12,7 @@ class Profile(models.Model):
     )
     image = ImageField(default='profiles/default_rWpNfNs.jpg',upload_to='profiles')
     bg_image = ImageField(default='bg_image/back_default.jpg',upload_to='bg_image')
+    bibliography = models.TextField(default=None, max_length=500, blank=True)
 
     def __str__(self):
         return self.user.username
