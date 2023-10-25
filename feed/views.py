@@ -1,4 +1,5 @@
 from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView,DeleteView,TemplateView
@@ -7,8 +8,7 @@ from django.contrib import messages
 from followers.models import Follower
 from .models import Post,Like
 from .forms import PostForm
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+
 
 class HomePage(TemplateView):
     template_name = "feed/homepage.html"
@@ -35,6 +35,27 @@ class HomePage(TemplateView):
             return redirect('/')
         posts = Post.objects.all().order_by('-id')[:60]
         return render(request, 'feed/homepage.html', {'form': form, 'posts': posts})
+
+def like_post(request):
+    user=request.user
+    if request.method=="POST":
+        post_id=request.POST.get('post_id')
+        post_obj=Post.objects.get(id=post_id)
+        
+        if user in post_obj.likes.all():
+            post_obj.likes.remove(user)
+        else:
+            post_obj.likes.add(user)
+            
+       
+        like,created = Like.objects.get_or_create(user=user,post_id=post_id)
+        
+                
+        like.save()
+                
+    post_detail_url = reverse('feed:detail', args=[post_id])
+
+    return redirect(post_detail_url)
 
 class DetailPostView(DetailView):
     http_method_names = ['get']
