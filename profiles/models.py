@@ -4,6 +4,7 @@ from django.db.models.signals import post_save
 from django.dispatch import receiver
 from sorl.thumbnail import ImageField
 
+
 class Profile(models.Model):
     user = models.OneToOneField(
         User,
@@ -12,8 +13,14 @@ class Profile(models.Model):
     )
     image = ImageField(default='profiles/default_rWpNfNs.jpg',upload_to='profiles')
     bg_image = ImageField(default='bg_image/back_default.jpg',upload_to='bg_image')
+<<<<<<< HEAD
+    
+    
+    
+=======
     bibliography = models.TextField(default=None, max_length=500, blank=True)
 
+>>>>>>> e7caf32369d86cbb579a5fab74517eeb420a9b84
     def __str__(self):
         return self.user.username
 
