@@ -176,7 +176,6 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-AUTH_USER_MODEL="profiles.Profile"
 ALLOWED_HOSTS = ['*']
 
 
