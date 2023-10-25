@@ -1,14 +1,14 @@
 from django.shortcuts import redirect, render
+from django.urls import reverse
 from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView,DeleteView,TemplateView
 from django.contrib import messages
 
 from followers.models import Follower
-from .models import Post,Comment,Like
+from .models import Post,Like
 from .forms import PostForm
-from django.http import JsonResponse
-from django.shortcuts import get_object_or_404
+
 
 class HomePage(TemplateView):
     template_name = "feed/homepage.html"
@@ -36,26 +36,35 @@ class HomePage(TemplateView):
         posts = Post.objects.all().order_by('-id')[:60]
         return render(request, 'feed/homepage.html', {'form': form, 'posts': posts})
 
+def like_post(request):
+    user=request.user
+    if request.method=="POST":
+        post_id=request.POST.get('post_id')
+        post_obj=Post.objects.get(id=post_id)
+        
+        if user in post_obj.likes.all():
+            post_obj.likes.remove(user)
+        else:
+            post_obj.likes.add(user)
+            
+       
+        like,created = Like.objects.get_or_create(user=user,post_id=post_id)
+        
+                
+        like.save()
+                
+    post_detail_url = reverse('feed:detail', args=[post_id])
+
+    return redirect(post_detail_url)
+
 class DetailPostView(DetailView):
     http_method_names = ['get']
     template_name = "feed/detail.html"
     model = Post
     context_object_name = "post"
     
-def like_post(request, post_id):
-    post = get_object_or_404(Post, id=post_id)
-    like, created = Like.objects.get_or_create(user=request.user, post=post)
 
-    # Verificar se o usuário já deu "like" e excluir o "like" se necessário
-    if not created:
-        like.delete()
 
-    post_likes = post.likes.count()
-
-    # Exemplo de retorno de JSON com o status do "like"
-    response_data = {'liked': created, 'like_count': post_likes}
-    return JsonResponse(response_data)
-    
 class CreateNewPost(LoginRequiredMixin,CreateView):
     model = Post
     template_name = "feed/new_post.html"

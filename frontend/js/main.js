@@ -105,24 +105,21 @@ videos.forEach(video => {
     observer.observe(video);
 });
 
-$(document).ready(function() {
-    $('#like-button').on('click', function(event) {
-        event.preventDefault();
-        var post_id = $(this).data('post-id');
-        var url = '/like/' + post_id + '/';
 
-        $.get(url, function(data) {
-            var likeButton = $('#like-button');
-            var likeText = $('#like-text');
-            var likeCount = $('#like-count');
+function likePost(form) {
+    const post_id = form.getAttribute('data-post-id');
+    const likeButton = form.querySelector('button');
+    const likeCount = likeButton.querySelector('strong span');
 
-            if (data.liked) {
-                likeText.text('Unlike');
-                likeCount.text(data.like_count);
-            } else {
-                likeText.text('Like');
-                likeCount.text(data.like_count);
-            }
-        });
+    $.post("{% url 'feed:likepost' %}", { post_id: post_id }, function(data) {
+        if (data.liked) {
+            likeButton.classList.remove('positive');
+            likeButton.classList.add('negative');
+            likeButton.innerHTML = "<strong>" + data.like_count + " <i class='bx bx-heart'></i></strong>";
+        } else {
+            likeButton.classList.remove('negative');
+            likeButton.classList.add('positive');
+            likeButton.innerHTML = "<strong>" + data.like_count + " <i class='bx bxs-heart'></i></strong>";
+        }
     });
-});
+}
