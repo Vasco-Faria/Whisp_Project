@@ -49,4 +49,43 @@
             </div>
         </div>
     </div>
-{% endblock body %}
+
+    <!-- Add a section for the bio -->
+    <div class="rounded-3xl overflow-hidden shadow-xl max-w-md mx-auto my-3 text-black bg-white-500">
+        <h3 class="text-lg font-bold font-sans">Bibliography</h3>
+        <form method="post" class="text-left px-10">
+            {% csrf_token %}
+            <textarea name="bibliography" rows="4" cols="50">{{ user.profile.bibliography }}</textarea>
+            <button type="submit" class="p-2 pl-5 pr-5 transition-colors duration-700 transform bg-indigo-500 hover:bg-blue-400 text-gray-100 text-lg rounded-lg focus:border-4 border-indigo-300">Update Bibliography</button>
+        </form>
+    </div>
+
+
+    <!-- <div id = "posts-container">
+        {% if posts %}
+            {% for post in posts %}
+                {% include "includes/post.html" with post=post  show_detail_link=True %}
+                <hr/>
+            {% endfor %}
+        {% else %}
+            <div class='text-center'>
+                <p class='font-semibold text-red-500 text-4xl'>You Do not have any Posts !!</p>
+                <a href="/" class="bg-white text-gray-800 font-bold rounded border-b-2 border-green-500 mt-10 hover:border-green-600 hover:bg-green-500 hover:text-white shadow-md py-2 px-6 inline-flex items-center js-toggle-modal">
+                    <span class="mr-2 text-lg" type='button'>Create New Post</span>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                        <path fill="currentcolor" d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"></path>
+                    </svg>
+                </a>
+            </div>  
+        {% endif %}
+    </div> -->
+    {% for post in posts %}
+    <div class="post">
+        <p>{{ post.text }}</p>
+        <p>{{ post.date }}</p>
+        <!-- Add other post details you want to display -->
+    </div>
+    {% empty %}
+        <p>No posts available.</p>
+    {% endfor %}
+    {% endblock body %}
