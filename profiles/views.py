@@ -6,6 +6,7 @@ from django.shortcuts import redirect, render
 from django.contrib import messages
 from django.views.generic import DetailView,View
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.views.generic import TemplateView
 from followers.models import Follower
 from .forms import UserUpdateForm,ProfileUpdateForm
 
@@ -25,12 +26,19 @@ class ProfileDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         user = self.get_object()
+        user_posts = self.get_posts_profile(user)
         context = super().get_context_data(**kwargs)
         context['total_posts'] = Post.objects.filter(author=user).count()
         context['total_follower'] = Follower.objects.filter(following=user).count()
+        context['user_posts'] = user_posts
         if self.request.user.is_authenticated:
             context['you_follow'] = Follower.objects.filter(following=user, followed_by=self.request.user).exists()
         return context
+    
+    def get_posts_profile(self, user):
+        return Post.objects.filter(author=user).order_by('date')
+        
+        
 
 class FollowView(LoginRequiredMixin,View):
     http_method_names = ['post']

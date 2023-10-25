@@ -130,7 +130,7 @@ class FollowingHomePage(TemplateView):
 
 class MyPostHomePage(TemplateView):
     http_method_names = ['get']
-    template_name = "feed/mypost.html"
+    template_name = "feed/detail.html"
     model = Post
     context_object_name = "posts"
     def dispatch(self, request, *args, **kwargs):
