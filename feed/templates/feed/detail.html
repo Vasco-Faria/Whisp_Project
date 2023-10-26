@@ -6,4 +6,11 @@
 
 {% block body %}
     {% include "includes/post.html" %}
+    <h1 style="padding-top: 3rem; padding-bottom: 3rem;text-align:center;font-size:1.5rem">Comments:</h1>
+    {% if comments %}
+    {% for comment in comments %}
+        {% include "includes/comments.html" with comment=comment %}
+        <hr/>
+    {% endfor %}
+    {%endif%}
 {% endblock body %}

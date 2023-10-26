@@ -6,7 +6,7 @@ from django.views.generic import DetailView,DeleteView,TemplateView
 from django.contrib import messages
 
 from followers.models import Follower
-from .models import Post,Like
+from .models import Post,Like,Comment
 from .forms import PostForm
 
 
@@ -62,6 +62,17 @@ class DetailPostView(DetailView):
     template_name = "feed/detail.html"
     model = Post
     context_object_name = "post"
+    
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        post = context['post']
+
+        comments = Comment.objects.filter(post=post)
+
+        context['comments'] = comments
+
+        return context
     
 
 
@@ -138,6 +149,8 @@ class MyPostHomePage(TemplateView):
         return super().dispatch(request, *args, **kwargs)
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        posts = Post.objects.filter(author=self.request.user).order_by('-id')[0:60]    
+        posts = Post.objects.filter(author=self.request.user).order_by('-id')[0:60]   
+        comments = Comment.objects.filter()
+        context['comments']=comments
         context['posts'] = posts
         return context

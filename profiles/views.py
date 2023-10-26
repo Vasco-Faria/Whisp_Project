@@ -30,7 +30,7 @@ class ProfileDetailView(DetailView):
         context = super().get_context_data(**kwargs)
         context['total_posts'] = Post.objects.filter(author=user).count()
         context['total_follower'] = Follower.objects.filter(following=user).count()
-        context['user_posts'] = user_posts
+        context['user_posts'] = user_posts.order_by('-date')
         if self.request.user.is_authenticated:
             context['you_follow'] = Follower.objects.filter(following=user, followed_by=self.request.user).exists()
         return context
