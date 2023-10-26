@@ -5,6 +5,7 @@
 {% endblock head_title %}
 
 {% block body %}
+{% if request.user.is_authenticated %} 
     <div class="flex justify-center">
         <form method='POST' action="." enctype="multipart/form-data">
             {% csrf_token %}
@@ -19,6 +20,7 @@
             </div>
         </form> 
     </div>
+{% endif %}
     <div id="posts-container">
         {% for post in posts %}
             {% include "includes/post.html" with post=post  show_detail_link=True %}

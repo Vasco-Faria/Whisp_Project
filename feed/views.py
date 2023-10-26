@@ -1,3 +1,4 @@
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import redirect, render
 from django.urls import reverse
 from django.views.generic.edit import CreateView
@@ -7,7 +8,7 @@ from django.contrib import messages
 
 from followers.models import Follower
 from .models import Post,Like,Comment
-from .forms import PostForm
+from .forms import PostForm,CommentForm
 
 
 class HomePage(TemplateView):
@@ -30,10 +31,12 @@ class HomePage(TemplateView):
                 author=request.user
             )
             post.save()
+            messages.add_message(self.request, messages.SUCCESS, "Your Post Is Submitted !!")
 
             
             return redirect('/')
         posts = Post.objects.all().order_by('-id')[:60]
+        
         return render(request, 'feed/homepage.html', {'form': form, 'posts': posts})
 
 def like_post(request):
@@ -58,11 +61,11 @@ def like_post(request):
     return redirect(post_detail_url)
 
 class DetailPostView(DetailView):
-    http_method_names = ['get']
+    http_method_names = ['get', 'post']
     template_name = "feed/detail.html"
     model = Post
     context_object_name = "post"
-    
+
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
 
@@ -71,8 +74,24 @@ class DetailPostView(DetailView):
         comments = Comment.objects.filter(post=post)
 
         context['comments'] = comments
+        context['comment_form'] = CommentForm()
 
         return context
+
+    def post(self, request, *args, **kwargs):
+        comment_form = CommentForm(request.POST)
+
+        if comment_form.is_valid():
+            new_comment = comment_form.save(commit=False)
+            new_comment.author = request.user
+            new_comment.post = self.get_object()
+            new_comment.save()
+            messages.add_message(self.request, messages.SUCCESS, "Your Comment is Submitted !!")
+
+        return redirect(f'/{new_comment.post.id}')
+
+    
+    
     
 
 
@@ -115,12 +134,25 @@ class CreateNewPost(LoginRequiredMixin,CreateView):
 class DeletePost(DeleteView):
     model = Post
     template = 'feed/post_confirm_delete.html'
+    
     success_url = '/'
     def dispatch(self, request, *args, **kwargs):
         self.request = request
         messages.add_message(self.request, messages.SUCCESS, "Your Post Is Deleted !!")
         return super().dispatch(request, *args, **kwargs)
     
+class DeleteComment(DeleteView):
+    model = Comment
+    template_name = 'feed/comment_confirm_delete.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        self.request = request
+        messages.add_message(self.request, messages.SUCCESS, "Your Comment Is Deleted !!")
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_success_url(self):
+        post_id = self.object.post_id 
+        return f'/{post_id}'
     
     
 class FollowingHomePage(TemplateView):

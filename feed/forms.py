@@ -8,7 +8,7 @@ class PostForm(forms.Form):
     
     
     
-class CommentForm(forms.Form):
+class CommentForm(forms.ModelForm):
     class Meta:
-        model=Comment
-        fields=('body')
+        model = Comment
+        fields = ['body']

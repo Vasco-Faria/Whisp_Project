@@ -46,5 +46,5 @@ class Comment(models.Model):
     date=models.DateTimeField(auto_now_add=True)
     
     def __str__(self):
-        return f"comment from {self.user} on {self.post}"
+        return f"comment from {self.author} on {self.post}"
     
