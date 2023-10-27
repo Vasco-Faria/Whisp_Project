@@ -1,0 +1,28 @@
+pipenv shell
+
+pip show django 
+
+pip install django==4.2.5
+
+pip install allauth 
+
+pip install sorl-thumbnail
+
+pip install pillow 
+
+
+python manage.py runserver 
+
+
+
+
+//outros comandos 
+
+
+django-admin startproject mysite .
+django-admin startapp blabla 
+python manage.py makemigrations
+python manage.py migrate
+python manage.py createsuperuser
+
+python
