@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'feed',
     'followers',
     'profiles',
+    'notify',
     
     'allauth',
     'allauth.account',
@@ -55,6 +56,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.facebook',
     'allauth.socialaccount.providers.github',
     'sorl.thumbnail',
+    'notifications',
 ]
 
 MIDDLEWARE = [

@@ -10,6 +10,8 @@ pip install sorl-thumbnail
 
 pip install pillow 
 
+pip install django-notifications-hq
+
 
 python manage.py runserver 
 
