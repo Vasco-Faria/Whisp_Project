@@ -22,6 +22,7 @@ from django.conf.urls.static import static
 from django.conf import settings
 from feed import urls as feed_urls
 from profiles import urls as profiles_urls
+from notify import urls as notify_urls
 from profiles.views import profile
 from notify import views
 from . import views
@@ -34,7 +35,7 @@ urlpatterns = [
     path('resetpassword/', views.reset_password,name='reset_password'),
     path("",include("allauth.urls")),
     path('rooms/',include('rooms.urls')),
-    path('notify/', include('notify.urls')),    
+    path('notify/', include(notify_urls,namespace='notify')),    
 ]
 
 if settings.DEBUG:
