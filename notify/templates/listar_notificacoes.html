@@ -1,22 +1,39 @@
-<h1> Total de Notificações: {{ count }} </h1>
+{% extends "base.html" %}
 
-{% for notification in unread_notifications %}
+{% block head_title %}
+    {{post.text}} by {{post.author.username}}
+{% endblock head_title %}
 
-    <div class="notify">
-        <div class="actor">
-            {{ notification.actor }}
-        </div>
-        <div class="verb">
-            {{ notification.verb }}
-        </div>
-        <div class="description">
-            {{ notification.description }}
-        </div>
-        <div class="timestamp">
-            {{ notification.timestamp }}
-        </div>
-    </div>
+{% block body %}
 
-{% endfor %}
+    <h1> Total de Notificações: {{ count }} </h1>
 
-<a class="btn-lido" href="{% url 'notify:marcar_notificao_como_lida' %}"> Marcar todas como lidas </a>
+    {% for notification in unread_notifications %}
+
+        <div class="notify">
+            <div class="verb">
+                {{ notification.verb }}
+            </div>
+            <div class="timestamp">
+                {{ notification.timestamp }}
+            </div>
+        </div>
+
+    {% endfor %}
+
+    <a class="btn-lido" href="{% url 'notify:marcar_notificao_como_lida' %}"> Marcar todas como lidas </a>
+
+    {% for notification in read_notifications %}
+
+        <div class="notify">
+            <div class="verb">
+                {{ notification.verb }}
+            </div>
+            <div class="timestamp">
+                {{ notification.timestamp }}
+            </div>
+        </div>
+
+    {% endfor %}
+
+{% endblock body %}

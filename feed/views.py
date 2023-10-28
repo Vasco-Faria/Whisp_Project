@@ -5,6 +5,7 @@ from django.views.generic.edit import CreateView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView,DeleteView,TemplateView
 from django.contrib import messages
+from notifications.signals import notify
 
 from followers.models import Follower
 from .models import Post,Like,Comment
@@ -33,7 +34,8 @@ class HomePage(TemplateView):
             post.save()
             messages.add_message(self.request, messages.SUCCESS, "Your Post Is Submitted !!")
 
-            
+            notify.send(request.user, recipient=request.user, verb=f"O seu post foi realizado com sucesso.")
+        
             return redirect('/')
         posts = Post.objects.all().order_by('-id')[:60]
         
@@ -50,10 +52,12 @@ def like_post(request):
         else:
             post_obj.likes.add(user)
             
-       
-        like,created = Like.objects.get_or_create(user=user,post_id=post_id)
+        post_owner = post_obj.author
+
+        like, created = Like.objects.get_or_create(user=user, post_id=post_id)
         
-                
+        notify.send(request.user, recipient=post_owner, verb=f"Your post has received a like by {user.username} .")
+        
         like.save()
                 
     post_detail_url = reverse('feed:detail', args=[post_id])
