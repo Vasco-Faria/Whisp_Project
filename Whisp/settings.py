@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'feed',
     'followers',
     'profiles',
+    'channels',
     
     'allauth',
     'allauth.account',
@@ -177,6 +178,8 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
+ASGI_APPLICATION = 'rooms.routing'
+
 ALLOWED_HOSTS = ['*']
 
 
@@ -187,6 +190,14 @@ AUTHENTICATION_BACKENDS = (
 STATICFILES_DIRS = [
     os.path.join(PROJECT_DIR, "frontend/")
 ]
+
+
+CHANNEL_LAYERS={
+    "default":{
+        "BACKEND":"channels.layers.InMemoryChannelLayer"
+    }
+
+}
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 STATIC_ROOT = os.path.join(BASE_DIR, "static")
