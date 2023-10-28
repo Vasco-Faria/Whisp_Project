@@ -6,9 +6,6 @@
 
 {% block body %}
     {% if friend_posts %}
-        <h3 class="font-light text-3xl text-blue-700 w-full mb-8">
-            {{ user.username }} - Posts by your friends
-        </h3>
         {% for post in friend_posts %}
             {% include "includes/post.html" with post=post  show_detail_link=True %}
             <hr/>

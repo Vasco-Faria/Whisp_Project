@@ -32,6 +32,7 @@ urlpatterns = [
     path("profile/", profile, name="profile"),
     path('resetpassword/', views.reset_password,name='reset_password'),
     path("",include("allauth.urls")),
+    path('rooms/',include('rooms.urls')),
 ]
 
 if settings.DEBUG:
