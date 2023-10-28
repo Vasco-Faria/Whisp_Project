@@ -16,7 +16,7 @@ class UserUpdateForm(forms.ModelForm):
 class ProfileUpdateForm(forms.ModelForm):
     class Meta:
         model = Profile
-        fields = ['image', 'bg_image', 'bibliography']
+        fields = ['image', 'bg_image', 'biography']
         labels = {
             'image': 'Avatar',
             'bg_image': 'Background img',

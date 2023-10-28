@@ -13,6 +13,7 @@
             <hr/>
         {% endfor %}
     {%endif%}
+    {% if request.user.is_authenticated %} 
     <form method='POST' action="{% url 'feed:detail' post.pk %}" >
         {% csrf_token %}
         {{ comment_form }}
@@ -25,6 +26,7 @@
             </button>
         </div>
     </form> 
+    {% endif %}
 
 
 {% endblock body %}

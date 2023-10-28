@@ -52,7 +52,8 @@
 
     <!--Add a section for the bio -->
     <div class="rounded-3xl overflow-hidden shadow-xl max-w-md mx-auto my-3 text-black bg-white-500">
-        <h3 class="text-lg font-bold font-sans">Bibliography</h3>
+        <h3 class="text-lg font-bold font-sans text-center">Biography</h3>
+
         <form method="post" class="text-left px-10">
             {% csrf_token %}
             <span name="bibliography" rows="4" cols="50">
@@ -72,9 +73,15 @@
                 <hr/>
             {% endfor %}
         {% else %}
+            {% if request.user == user  %}
             <div class='text-center'>
                 <p class='font-semibold text-red-500 text-4xl'>You Do not have any Posts !!</p>
             </div>  
+            {% else %}
+            <div class='text-center'>
+                <p class='font-semibold text-red-500 text-4xl'>{{ user.username }} Do not have any Posts !!</p>
+            </div>
+            {% endif %}
         {% endif %}
     </div> 
     {% endblock body %}
