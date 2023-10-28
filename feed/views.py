@@ -51,10 +51,10 @@ def like_post(request):
             post_obj.likes.remove(user)
         else:
             post_obj.likes.add(user)
-            
-        post_owner = post_obj.author
 
         like, created = Like.objects.get_or_create(user=user, post_id=post_id)
+
+        post_owner = post_obj.author
         
         notify.send(request.user, recipient=post_owner, verb=f"Your post has received a like by {user.username} .")
         
@@ -91,6 +91,10 @@ class DetailPostView(DetailView):
             new_comment.post = self.get_object()
             new_comment.save()
             messages.add_message(self.request, messages.SUCCESS, "Your Comment is Submitted !!")
+
+        post_owner = post_owner = self.get_object().author 
+        
+        notify.send(request.user, recipient=post_owner, verb=f"Your post has received a comment by {request.user.username} .")
 
         return redirect(f'/{new_comment.post.id}')
 
