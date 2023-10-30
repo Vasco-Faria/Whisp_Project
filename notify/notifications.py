@@ -6,3 +6,7 @@ def get_unread_notifications_user(user):
 
 def count_notififications_unread_user(user):
     return get_unread_notifications_user(user).count()
+
+def get_read_notifications_user(user):
+    read_notifications = Notification.objects.read().filter(recipient=user)
+    return read_notifications
