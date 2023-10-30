@@ -92,7 +92,7 @@ class DetailPostView(DetailView):
             new_comment.save()
             messages.add_message(self.request, messages.SUCCESS, "Your Comment is Submitted !!")
 
-        post_owner = post_owner = self.get_object().author 
+        post_owner = self.get_object().author 
         
         notify.send(request.user, recipient=post_owner, verb=f"Your post has received a comment by {request.user.username} .")
 
