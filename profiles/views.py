@@ -9,7 +9,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from followers.models import Follower
 from .forms import UserUpdateForm,ProfileUpdateForm
-
 from feed.models import Post
 
 class ProfileDetailView(DetailView):
@@ -60,6 +59,7 @@ class FollowView(LoginRequiredMixin,View):
                 followed_by = request.user,
                 following= other_user,
             )
+            
         else:
             try:
                 follower = Follower.objects.get(
