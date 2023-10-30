@@ -9,6 +9,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from followers.models import Follower
 from .forms import UserUpdateForm,ProfileUpdateForm
+from notifications.signals import notify
 
 from feed.models import Post
 
@@ -60,6 +61,10 @@ class FollowView(LoginRequiredMixin,View):
                 followed_by = request.user,
                 following= other_user,
             )
+
+            profile_owner = other_user
+            notify.send(request.user, recipient=profile_owner, verb=f"{request.user.username} started following you.")
+
         else:
             try:
                 follower = Follower.objects.get(
