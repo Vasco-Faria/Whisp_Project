@@ -14,17 +14,13 @@
 
 **Objetivos**
 
-| Objetivos | Done |
+| Obkectives | Done |
 |:---: |:---:|
-| Development of a web application (client and server side), to allow the information access in an easy and intuitive way | X |
-| The application must be developed with all interfaces for client side and functionalities for server-side, in association with the database, to allow all kind of operations: information
-showing, data searching, insertion, updating, deleting and all subsequent validations | X |
-| The application must be divided in public and private parts, using the login functionality.
-These parts must have a clear differentiation in the set of allowed operations | X |
-| It must also be developed in a modular way, encapsulating the three components: data, logic
-and presentation; using all learned technics | X |
-|It must be deployed in the public site, pythonanywhere, in order to be accessed from
-anywhere | X |
+| Client and Server side Web App| X |
+| Interfaces for client and functionalities for server-side, associated with the database, to allow all operations: information showing, data searching, insertion, updating, deleting and validation| X |
+| Public and private parts, using the login functionality. These parts must have a clear differentiation in the set of allowed operations| X |
+| It must also be developed in a modular way, encapsulating the three components: data, logic and presentation; using all learned technics | X |
+| It must be deployed in the public site, pythonanywhere, in order to be accessed from anywhere | X |
 
 ## Funcionalidades Atuais
 
