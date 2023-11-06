@@ -1,6 +1,6 @@
 # Projeto TPW1 (Rede Social)
 
-- **Introdução**
+## **Introdução**
 - Breve Introdução ao tema do projeto (Rede Social Whisp)
 
 - **Descrição do projeto**
@@ -15,7 +15,7 @@
     * Seguidores
     * Admin
 
-- **Descrição detalhada**
+## **Descrição detalhada**
 
 + LOGIN/REGISTER
     - Novos users fazem register / antigos users fazem login.
@@ -50,7 +50,7 @@
     - Apagar post/ comentario
     - Tem funções restritas e superiores às do user
 
-- **Objetivos**
+## **Objetivos**
 
 | Objectives | Done |
 |:---: |:---:|
