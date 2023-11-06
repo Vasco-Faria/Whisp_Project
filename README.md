@@ -43,3 +43,19 @@ Funcionalidades a adicionar no futuro:
 - **Hashtags e Pesquisa**: Adicionar a capacidade de adicionar hashtags aos posts e implementar uma funcionalidade de pesquisa para encontrar posts com base em palavras-chave ou hashtags.
 - **Chat ou Mensagens Diretas**: Introduzir um recurso de chat ou mensagens diretas para que os users possam se comunicar uns com os outros de forma mais direta e privada.
 
+## How to run
+**Option 1**
+- Aceder ao site [https://whisp.pythonanywhere.com/](https://whisp.pythonanywhere.com/)
+
+**Option 2**
+- Correr localmente:
+1. pipenv shell
+2. pip install -r requirements.txt
+3. python manage.py runserver 0.0.0.0:8000
+
+## Comandos Uteis
+- django-admin startproject mysite .
+- django-admin startapp blabla 
+- python manage.py makemigrations
+- python manage.py migrate
+- python manage.py createsuperuser
