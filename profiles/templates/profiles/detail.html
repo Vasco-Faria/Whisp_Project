@@ -56,11 +56,11 @@
 
         <form method="post" class="text-left px-10">
             {% csrf_token %}
-            <span name="bibliography" rows="4" cols="50">
-                {% if user.profile.bibliography == "" %}
-                    <p class='text-gray-500'>No Bibliography</p>
+            <span name="biography" rows="4" cols="50">
+                {% if user.profile.biography == "" %}
+                    <p class='text-gray-500'>No biography</p>
                 {% else %}
-                    {{ user.profile.bibliography }}
+                    {{ user.profile.biography }}
                 {% endif %}
             </span>
         </form>
