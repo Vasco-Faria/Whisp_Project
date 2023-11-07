@@ -1,5 +1,5 @@
 django==4.2.5
-allauth
+django-allauth
 sorl-thumbnail
 pillow
 django-notifications-hq
