@@ -1,0 +1,5 @@
+django==4.2.5
+django-allauth
+sorl-thumbnail
+pillow
+django-notifications-hq

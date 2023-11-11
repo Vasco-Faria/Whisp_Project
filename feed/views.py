@@ -147,8 +147,22 @@ class DeletePost(DeleteView):
     def dispatch(self, request, *args, **kwargs):
         self.request = request
         messages.add_message(self.request, messages.SUCCESS, "Your Post Is Deleted !!")
+
         return super().dispatch(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        action = request.POST.get('action')
+
+        if action == 'Yes':
+            user = request.user
+            post_owner = self.get_object().author 
+            notify.send(user, recipient=post_owner, verb=f"Your post was deleted by the admin, {user.username} .")
+
+        return HttpResponseRedirect('/')
+
+        
     
+
 class DeleteComment(DeleteView):
     model = Comment
     template_name = 'feed/comment_confirm_delete.html'

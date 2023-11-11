@@ -9,11 +9,8 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import TemplateView
 from followers.models import Follower
 from .forms import UserUpdateForm,ProfileUpdateForm
-<<<<<<< HEAD
-=======
 from notifications.signals import notify
 
->>>>>>> cc60cc6e46ebe96fc24bb19cea989ee914069a7a
 from feed.models import Post
 
 class ProfileDetailView(DetailView):
