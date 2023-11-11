@@ -66,7 +66,9 @@
         </form>
     </div>
 
-    <div id = "posts-container">
+    <div id = "posts-container" style="text-align:center;margin-top:5rem">
+        <a href="?filter=media" class="{% if active_filter == 'media' %}underline{% endif %}" style="font-size:1.5rem;font-weight:500;text-decoration-color:indigo;text-decoration-thickness:0.4rem;text-decoration-skip: space;">Media</a>
+        <a href="?filter=all" class="{% if active_filter == 'all' %}underline{% endif %}" style="margin-left:1.5rem;font-size:1.5rem;font-weight:500;text-decoration-color:indigo;text-decoration-thickness:0.4rem;text-decoration-skip: space;">All</a>
         {% if user_posts %}
             {% for post in user_posts %}
                 {% include "includes/post.html" with post=post  show_detail_link=True %}

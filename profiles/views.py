@@ -10,6 +10,7 @@ from django.views.generic import TemplateView
 from followers.models import Follower
 from .forms import UserUpdateForm,ProfileUpdateForm
 from notifications.signals import notify
+from django.db.models import Q
 
 from feed.models import Post
 
@@ -27,17 +28,30 @@ class ProfileDetailView(DetailView):
 
     def get_context_data(self, **kwargs):
         user = self.get_object()
-        user_posts = self.get_posts_profile(user)
+
+        media_filter = self.request.GET.get('filter')
+
+        user_posts = self.get_posts_profile(user, media_filter)
+
         context = super().get_context_data(**kwargs)
         context['total_posts'] = Post.objects.filter(author=user).count()
         context['total_follower'] = Follower.objects.filter(following=user).count()
-        context['user_posts'] = user_posts.order_by('-date')
+        context['user_posts'] = user_posts
         if self.request.user.is_authenticated:
             context['you_follow'] = Follower.objects.filter(following=user, followed_by=self.request.user).exists()
+        
+        context['active_filter'] =  media_filter  if  media_filter  in ['media', 'all'] else 'all'
+        
         return context
-    
-    def get_posts_profile(self, user):
-        return Post.objects.filter(author=user).order_by('date')
+
+    def get_posts_profile(self, user, media_filter=all):
+        posts = Post.objects.filter(author=user).order_by('-date')
+
+        if media_filter == 'media':
+            posts = posts.exclude(image='', video='').exclude(image__isnull=True, video__isnull=True)
+        elif media_filter == 'all':
+            posts = posts.order_by('-date')
+        return posts
         
         
 
