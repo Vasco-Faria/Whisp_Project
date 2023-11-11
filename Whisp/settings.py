@@ -42,13 +42,12 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    'rooms',
     'feed',
     'followers',
     'profiles',
     'channels',
     'notify',
+    'chat',
     
     'allauth',
     'allauth.account',
@@ -180,7 +179,7 @@ SOCIALACCOUNT_PROVIDERS = {
     }
 }
 
-ASGI_APPLICATION = 'rooms.routing'
+ASGI_APPLICATION = 'Whisp.asgi.application'
 
 ALLOWED_HOSTS = ['*']
 

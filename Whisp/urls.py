@@ -34,8 +34,8 @@ urlpatterns = [
     path("profile/", profile, name="profile"),
     path('resetpassword/', views.reset_password,name='reset_password'),
     path("",include("allauth.urls")),
-    path('rooms/',include('rooms.urls')),
-    path('notify/', include(notify_urls,namespace='notify')),    
+    path('notify/', include(notify_urls,namespace='notify')),   
+    path('chat/',include('chat.urls')) 
 ]
 
 if settings.DEBUG:
