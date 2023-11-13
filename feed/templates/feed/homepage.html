@@ -5,6 +5,12 @@
 {% endblock head_title %}
 
 {% block body %}
+<form id="search-form" method="get" action="" style="text-align: center; margin-bottom: 3rem;">
+    <input type="text" name="search" value="{{ search_query }}" placeholder="Search" style="height: 40px;">
+    <button type="submit" style="color: indigo; font-size: 18px;margin-left:1rem;">Search</button>
+</form>
+
+
 
 {% if request.user.is_authenticated %} 
     <div class="flex justify-center">
@@ -104,4 +110,5 @@
             </p>
         </div>
     </section>
+        
 {% endblock  %} 

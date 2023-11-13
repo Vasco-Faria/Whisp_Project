@@ -6,10 +6,11 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import DetailView,DeleteView,TemplateView
 from django.contrib import messages
 from notifications.signals import notify
+from django.db.models import Q
 
 from followers.models import Follower
 from .models import Post,Like,Comment
-from .forms import PostForm,CommentForm
+from .forms import PostForm,CommentForm, SearchForm
 
 
 class HomePage(TemplateView):
@@ -17,11 +18,21 @@ class HomePage(TemplateView):
 
     def get_context_data(self, *args, **kwargs):
         context = super().get_context_data(*args, **kwargs)
-        posts = Post.objects.all().order_by('-id')[:60]
+        search_query = self.request.GET.get('search', '')
+        search_form = SearchForm(initial={'search': search_query})
+        
+        if search_query:
+            
+            posts = Post.objects.filter(Q(text__icontains=search_query)).order_by('-id')[:60]
+        else:
+            
+            posts = Post.objects.all().order_by('-id')[:60]
+            
         context['posts'] = posts
-        context['form'] = PostForm()  
+        context['form'] = PostForm()
+        context['search_form'] = search_form
         return context
-
+    
     def post(self, request, *args, **kwargs):
         form = PostForm(request.POST, request.FILES)
         if form.is_valid():
@@ -40,6 +51,7 @@ class HomePage(TemplateView):
         posts = Post.objects.all().order_by('-id')[:60]
         
         return render(request, 'feed/homepage.html', {'form': form, 'posts': posts})
+    
 
 def like_post(request):
     user=request.user
