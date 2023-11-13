@@ -20,7 +20,7 @@
 | Interfaces for client and functionalities for server-side, associated with the database, to allow all operations: information showing, data searching, insertion, updating, deleting and validation| X |
 | Public and private parts, using the login functionality. These parts must have a clear differentiation in the set of allowed operations| X |
 | It must also be developed in a modular way, encapsulating the three components: data, logic and presentation; using all learned technics | X |
-| It must be deployed in the public site, pythonanywhere, in order to be accessed from anywhere |  |
+| It must be deployed in the public site, pythonanywhere, in order to be accessed from anywhere | X |
 
 ## Funcionalidades Atuais
 
@@ -59,13 +59,3 @@ Funcionalidades a adicionar no futuro:
 - python manage.py makemigrations
 - python manage.py migrate
 - python manage.py createsuperuser
-
-## **Objetivos**
-
-| Objectives | Done |
-|:---: |:---:|
-| Client and Server side Web App| X |
-| Interfaces for client and functionalities for server-side, associated with the database, to allow all operations: information showing, data searching, insertion, updating, deleting and validation| X |
-| Public and private parts, using the login functionality. These parts must have a clear differentiation in the set of allowed operations| X |
-| It must also be developed in a modular way, encapsulating the three components: data, logic and presentation; using all learned technics | X |
-| It must be deployed in the public site, pythonanywhere, in order to be accessed from anywhere | X |
