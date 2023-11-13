@@ -96,8 +96,10 @@ class DetailPostView(DetailView):
 
     def post(self, request, *args, **kwargs):
         comment_form = CommentForm(request.POST)
+        print('Reached post method')  
 
         if comment_form.is_valid():
+            print('Form is valid') 
             new_comment = comment_form.save(commit=False)
             new_comment.author = request.user
             new_comment.post = self.get_object()
@@ -153,13 +155,12 @@ class CreateNewPost(LoginRequiredMixin,CreateView):
     
 class DeletePost(DeleteView):
     model = Post
-    template = 'feed/post_confirm_delete.html'
-    
+    template_name = 'feed/post_confirm_delete.html'
     success_url = '/'
+
     def dispatch(self, request, *args, **kwargs):
         self.request = request
-        messages.add_message(self.request, messages.SUCCESS, "Your Post Is Deleted !!")
-
+        messages.success(self.request, "Your Post Is Deleted !!")
         return super().dispatch(request, *args, **kwargs)
 
     def post(self, request, *args, **kwargs):
@@ -167,10 +168,13 @@ class DeletePost(DeleteView):
 
         if action == 'Yes':
             user = request.user
-            post_owner = self.get_object().author 
+            post = self.get_object()
+            post_owner = post.author
             notify.send(user, recipient=post_owner, verb=f"Your post was deleted by the admin, {user.username} .")
+            post.delete()  # Delete the post
 
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect(self.success_url)
+
 
         
     
