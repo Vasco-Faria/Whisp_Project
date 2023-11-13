@@ -25,6 +25,7 @@
     - Informações gerais do User
     - Posts do User no perfil
     - Avatar e Banner são personalizaveis através da pagina de personalização
+    - Posts por Media/Texto
 
 + PERSONALIZAR PERFIL
     - Mudar bio, avatar e banner
@@ -42,6 +43,7 @@
 + SISTEMA DE NOTIFICAÇÔES
     - Pagina com as notificações de like/ novo seguidor/ comentario
     - Notificações de Admin apagar post
+    - Notificações marcadas como lidas
 
 + SEGUIDORES
     - Entrar em algum perfil e seguir alguem

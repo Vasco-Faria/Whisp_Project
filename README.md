@@ -30,7 +30,7 @@ Neste momento, as funcionalidades principais incluem:
 - Interação/Informação com/de posts (Data de criação, Autor, Likes, Comentários).
 - Página de Feed (Posts de todos os users, Posts de users seguidos).
 - Seguidores (Interação entre perfis de users)
-- Perfil de User (Posts, Seguidores, Seguindo, Informações)
+- Perfil de User (Posts, Seguidores, Seguindo, Informações, Posts Media/Texto)
 - Personalização de Perfil (Banner, Avatar)
 - Interação com posts (Like, Comentários)
 - Sistema de notificações (Novo seguidor, Novo comentário, Novo like, Admin apagou post)
