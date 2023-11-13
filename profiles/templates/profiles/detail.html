@@ -17,6 +17,7 @@
         </div>
         <div class="text-center px-3 pb-6 pt-2">
             <h3 class="text-lg font-bold font-sans">{{user.username}}</h3>
+            <p class="text-md  font-sans">{{user.first_name}} {{user.last_name}}</p>
             {% if request.user.is_authenticated %}
                 {% if request.user != user  %}
                     <div class="ml-auto">
