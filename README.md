@@ -53,6 +53,20 @@ Funcionalidades a adicionar no futuro:
 2. pip install -r requirements.txt
 3. python manage.py runserver 0.0.0.0:8000
 
+## Test Accounts
+- User
+    ```
+    username: Amelia
+    password: Olaolaola
+    ```
+
+- Administrator:
+    ```
+    username: vascomfaria
+    password: Olaolaola
+    ```
+
+
 ## Comandos Uteis
 - django-admin startproject mysite .
 - django-admin startapp blabla 
