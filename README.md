@@ -35,12 +35,12 @@ Neste momento, as funcionalidades principais incluem:
 - Interação com posts (Like, Comentários)
 - Sistema de notificações (Novo seguidor, Novo comentário, Novo like, Admin apagou post)
 - Admin (Apagar post, Apagar comentário)
+- SearchBar (Pesquisa no feed por caracteres presentes nos posts)
 
 
 ## To-Do List (Recursos Futuros)
 
 Funcionalidades a adicionar no futuro:
-- **Hashtags e Pesquisa**: Adicionar a capacidade de adicionar hashtags aos posts e implementar uma funcionalidade de pesquisa para encontrar posts com base em palavras-chave ou hashtags.
 - **Chat ou Mensagens Diretas**: Introduzir um recurso de chat ou mensagens diretas para que os users possam se comunicar uns com os outros de forma mais direta e privada.
 
 ## How to run
