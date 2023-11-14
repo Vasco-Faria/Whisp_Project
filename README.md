@@ -62,7 +62,7 @@ Funcionalidades a adicionar no futuro:
 
 - Administrator:
     ```
-    username: vascomfaria
+    username: neyterra
     password: Olaolaola
     ```
 
