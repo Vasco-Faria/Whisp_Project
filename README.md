@@ -29,13 +29,13 @@ Neste momento, as funcionalidades principais incluem:
 - Criação e visualização de posts (Upload de Texto, Foto, Video).
 - Interação/Informação com/de posts (Data de criação, Autor, Likes, Comentários).
 - Página de Feed (Posts de todos os users, Posts de users seguidos).
+- SearchBar (Pesquisa no feed por caracteres presentes nos posts)
 - Seguidores (Interação entre perfis de users)
 - Perfil de User (Posts, Seguidores, Seguindo, Informações, Posts Media/Texto)
 - Personalização de Perfil (Banner, Avatar)
 - Interação com posts (Like, Comentários)
 - Sistema de notificações (Novo seguidor, Novo comentário, Novo like, Admin apagou post)
 - Admin (Apagar post, Apagar comentário)
-- SearchBar (Pesquisa no feed por caracteres presentes nos posts)
 
 
 ## To-Do List (Recursos Futuros)
@@ -66,6 +66,8 @@ Funcionalidades a adicionar no futuro:
     password: Olaolaola
     ```
 
+## Notas
+- O projeto presente no pythonanywhere apresenta algumas modificações em relação ao codigo aqui presente, sao apenas modificações de estilo e a adição de um butao junto da barra de pesquisa para dar "clear" dos filtros de pesquisa.
 
 ## Comandos Uteis
 - django-admin startproject mysite .

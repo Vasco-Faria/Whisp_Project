@@ -33,6 +33,7 @@
 + PEGINA DE FEED
     - Posts dos users em geral
     - Posts dos users segidos
+    - Pesquisa por caracteres no post
 
 + CRIAÇÂO DE POSTS
     - Upload de posts de texto/Images/Video
